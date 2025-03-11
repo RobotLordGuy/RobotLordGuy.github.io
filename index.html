@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Link in New Tab</title>
+    <style>
+        body {
+            background-color: lightblue; /* Background color */
+        }
+        #userLink {
+            width: 300px;
+            height: 40px;
+            font-size: 16px;
+            padding: 5px;
+        }
+        button {
+            margin-left: 100px;
+            width: 160px;
+            height: 50px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: rgb(4, 228, 0);
+        }
+        #message {
+            margin-top: 20px; /* Adds space between the button and the text */
+            font-size: 18px;
+            color: #000000;
+            margin-left: 10px;  /* Moves the text more to the right */
+        }
+        #buttonContainer {
+            display: flex;
+            justify-content: flex-start;  /* Aligns the buttons to the left */
+            margin-top: 20px;  /* Adds some space between the message and the buttons */
+        }
+        #additionalButton {
+            background-color: rgb(255, 99, 71); /* A different color for the second button */
+            margin-left: 225px;  /* Adds space between the buttons */
+            width: 200px;
+        }
+        #downloadButton {
+            background-color: blue; /* Blue button color */
+            color: white;
+            margin-left: 20px;
+        }
+        #ormessage {
+            margin-top: -30px;
+            font-size: 18px;
+            color:#000000;
+            margin-left: 485px;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="userLink" placeholder="ENTER A LINK">
+    <button onclick="openNewTab()">Open In New Tab</button>
+    <p id="message">Download a picture of Shadow the hedgehog below</p> <!-- Static text -->
+    <p id="ormessage">OR</p>
+
+    <!-- Wrap buttons in a container -->
+    <div id="buttonContainer">
+        <button id="downloadButton" onclick="downloadFile()">Download File</button>
+        <button id="additionalButton" onclick="openInNewWindow()">Open In New Window</button>
+    </div>
+
+    <script>
+        // Opens the link in a new tab
+        function openNewTab() {
+            let url = document.getElementById('userLink').value;
+            // Check if the URL is valid
+            let pattern = /^(http|https):\/\/[^ "]+$/;
+            if (url && pattern.test(url)) {
+                window.open(url, '_blank');
+            } else {
+                alert('Please enter a valid URL starting with http:// or https://');
+            }
+        }
+
+        // Opens the link in a new window
+        function openInNewWindow() {
+            let url = document.getElementById('userLink').value;
+            // Check if the URL is valid
+            let pattern = /^(http|https):\/\/[^ "]+$/;
+            if (url && pattern.test(url)) {
+                window.open(url, 'newWindow', 'width=800,height=600');  // Adjust window size here
+            } else {
+                alert('Please enter a valid URL starting with http:// or https://');
+            }
+        }
+
+        // Download the file when the button is clicked
+        function downloadFile() {
+            // Specify the URL or local path to your file
+            let fileUrl = 'shadow-the-hedgehog-4K.jpg';  // Replace this with your actual file URL or path
+            let link = document.createElement('a');
+            link.href = fileUrl;
+            link.download = 'shadow-the-hedgehog-4K';  // Specify the filename for the download
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>
