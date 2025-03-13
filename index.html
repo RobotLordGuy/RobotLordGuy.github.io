@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Link Controls</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+        .container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        input {
+            padding: 5px;
+            width: 300px;
+        }
+        button {
+            padding: 8px 15px;
+            border: none;
+            cursor: pointer;
+            color: white;
+        }
+        .green-button { background-color: green; }
+        .red-button { background-color: red; }
+        .switch-container {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <input type="text" id="urlInput" placeholder="Enter URL here...">
+        <button class="green-button" onclick="openLink(true)">Open In New Tab</button>
+        <span>OR</span>
+        <button class="red-button" onclick="openLink(false)">Open In New Window</button>
+    </div>
+    <div class="switch-container">
+        <label for="embedMode">Embed Mode</label>
+        <input type="checkbox" id="embedMode">
+    </div>
+
+    <script>
+        function openLink(inNewTab) {
+            let url = document.getElementById("urlInput").value;
+            
+            if (!url) {
+                alert("Please enter a valid URL.");
+                return;
+            }
+
+            // Ensure URL starts with http:// or https://
+            if (!url.startsWith("http://") && !url.startsWith("https://")) {
+                url = "https://" + url; // Default to HTTPS if missing
+            }
+
+            // Get the Embed Mode status (on or off)
+            const embedMode = document.getElementById("embedMode").checked;
+
+            // If Embed Mode is ON, open in an iframe within a new window or tab
+            if (embedMode) {
+                if (inNewTab) {
+                    // Open a new tab and add an iframe dynamically
+                    const iframeWindow = window.open("", "_blank");
+                    if (iframeWindow) {
+                        const iframe = iframeWindow.document.createElement("iframe");
+                        iframe.src = url;
+                        iframe.style.width = "100%";
+                        iframe.style.height = "100%";
+                        iframe.style.border = "none";
+                        iframeWindow.document.body.appendChild(iframe);
+                    }
+                } else {
+                    // Open a new window and add an iframe dynamically
+                    const iframeWindow = window.open("", "_blank", "width=800,height=600");
+                    if (iframeWindow) {
+                        const iframe = iframeWindow.document.createElement("iframe");
+                        iframe.src = url;
+                        iframe.style.width = "100%";
+                        iframe.style.height = "100%";
+                        iframe.style.border = "none";
+                        iframeWindow.document.body.appendChild(iframe);
+                    }
+                }
+            } else {
+                // If Embed Mode is OFF, open the URL normally in a new tab or window
+                if (inNewTab) {
+                    window.open(url, "_blank"); // Open URL in a new tab
+                } else {
+                    window.open(url, "_blank", "width=800,height=600"); // Open URL in a new window
+                }
+            }
+        }
+    </script>
+</body>
+</html>
