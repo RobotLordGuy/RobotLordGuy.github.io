@@ -29,11 +29,36 @@
         }
         .green-button { background-color: green; }
         .red-button { background-color: red; }
+        .blue-button { background-color: blue; }
         .switch-container {
             margin-top: 20px;
             display: flex;
             align-items: center;
             gap: 10px;
+        }
+        .download-text {
+            margin-top: 10px;
+            font-size: 16px;
+        }
+        .download-button-container {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .download-button {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: blue;
+            color: white;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .download-button .arrow {
+            margin-left: 8px;
         }
     </style>
 </head>
@@ -47,6 +72,15 @@
     <div class="switch-container">
         <label for="embedMode">Embed Mode</label>
         <input type="checkbox" id="embedMode">
+    </div>
+
+    <!-- Blue Download Button Section -->
+    <div class="download-button-container">
+        <a href="shadow-the-hedgehog-4K.jpg" download="shadow-the-hedgehog.jpg" class="download-button">
+            Download
+            <span class="arrow">&#8595;</span> <!-- Downward arrow -->
+        </a>
+        <div class="download-text">Downloadable Shadow The Hedgehog</div>
     </div>
 
     <script>
